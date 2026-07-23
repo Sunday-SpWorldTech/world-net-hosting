@@ -1,0 +1,31 @@
+{
+  "name": "world-net-hosting-backend",
+  "version": "2.0.0",
+  "description": "World Net Hosting MongoDB Express Node API with auth, PIN dashboard access, domains and Paystack routes",
+  "main": "src/server.js",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/seed.js",
+    "smoke": "node src/smoke.js",
+    "preflight": "node src/preflight.js"
+  },
+  "dependencies": {
+    "axios": "^1.18.1",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.8.1",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.24.1",
+    "multer": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

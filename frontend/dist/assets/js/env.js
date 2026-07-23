@@ -1,0 +1,1 @@
+(function configureWorldNetHosting(){window.WORLDNET_CONFIG={API_BASE_URL:"https://world-net-hosting-backend.onrender.com/api",PAYSTACK_PUBLIC_KEY:"",DEFAULT_DISPLAY_CURRENCY:"USD",FRONTEND_URL:"https://world-net-hosting-frontend.onrender.com"};})();

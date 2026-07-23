@@ -1,0 +1,16 @@
+{
+  "name": "world-net-hosting",
+  "version": "2.0.0",
+  "private": true,
+  "description": "World Net Hosting separated frontend and backend services",
+  "scripts": {
+    "install:all": "npm --prefix frontend install && npm --prefix backend install",
+    "start:frontend": "npm --prefix frontend start",
+    "start:backend": "npm --prefix backend start",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "check": "node --check frontend/server.js && node --check frontend/scripts-build-static.mjs && node --check frontend/assets/js/app.js && node --check frontend/assets/js/hosting-dashboard.js && node --check backend/src/server.js && node --check backend/src/preflight.js && node --check backend/src/routes/hostingRoutes.js && node --check backend/src/services/githubApp.js && node --check deployment-worker/src/server.js",
+    "audit": "npm run check && npm --prefix backend run smoke && npm --prefix frontend run build",
+    "preflight": "npm --prefix backend run preflight"
+  }
+}

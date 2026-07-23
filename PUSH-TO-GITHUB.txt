@@ -1,0 +1,55 @@
+WORLD NET HOSTING — COMPLETE GITHUB PUSH COMMANDS
+Repository: https://github.com/Sunday-SpWorldTech/world-net-hosting.git
+
+1. Extract this ZIP.
+2. Open PowerShell inside the extracted world-net-hosting folder.
+3. Run the commands below exactly.
+
+cd "C:\Users\USER\world-net-hosting"
+
+git init
+git branch -M main
+git remote remove origin 2>$null
+git remote add origin https://github.com/Sunday-SpWorldTech/world-net-hosting.git
+git add .
+git commit -m "Complete World Net Hosting frontend and backend update"
+git push -u origin main --force
+
+NORMAL FUTURE PUSHES
+
+cd "C:\Users\USER\world-net-hosting"
+git add .
+git commit -m "Update World Net Hosting"
+git push origin main
+
+LOCAL FRONTEND
+
+cd "C:\Users\USER\world-net-hosting\frontend"
+npm install
+npm start
+
+LOCAL BACKEND
+
+cd "C:\Users\USER\world-net-hosting\backend"
+npm install
+npm start
+
+RENDER FRONTEND SERVICE
+Root Directory: frontend
+Build Command: npm install
+Start Command: npm start
+
+RENDER BACKEND SERVICE
+Root Directory: backend
+Build Command: npm install
+Start Command: npm start
+
+IMPORTANT BACKEND ENVIRONMENT VARIABLES
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_long_random_secret
+PAYSTACK_SECRET_KEY=your_paystack_secret_key
+FRONTEND_URL=https://your-frontend-service.onrender.com
+PAYSTACK_CALLBACK_URL=https://your-frontend-service.onrender.com/payment-success.html
+NODE_ENV=production
+
+Do not put the backend URL in FRONTEND_URL or PAYSTACK_CALLBACK_URL.

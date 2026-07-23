@@ -1,0 +1,122 @@
+services:
+  - type: web
+    name: world-net-hosting-backend
+    runtime: node
+    rootDir: backend
+    plan: starter
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 20.20.2
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_LOGIN_PIN
+        sync: false
+      - key: WITHDRAWAL_ENCRYPTION_KEY
+        sync: false
+      - key: ENV_ENCRYPTION_KEY
+        sync: false
+      - key: PAYSTACK_PUBLIC_KEY
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_REQUIRE_LIVE
+        value: "true"
+      - key: PAYSTACK_DEFAULT_CURRENCY
+        value: NGN
+      - key: PAYSTACK_SUPPORTED_CURRENCIES
+        value: NGN
+      - key: PAYSTACK_DVA_PREFERRED_BANK
+        value: titan-paystack
+      - key: AZURE_TRANSLATOR_KEY
+        sync: false
+      - key: AZURE_TRANSLATOR_REGION
+        value: global
+      - key: AZURE_TRANSLATOR_ENDPOINT
+        value: https://api.cognitive.microsofttranslator.com
+      - key: DOMAIN_RESELLER_ID
+        sync: false
+      - key: DOMAIN_API_KEY
+        sync: false
+      - key: DOMAIN_API_ALLOW_CUSTOM_BASE
+        value: "false"
+      - key: GITHUB_APP_ID
+        sync: false
+      - key: GITHUB_APP_SLUG
+        value: world-net-hosting
+      - key: GITHUB_APP_INSTALL_URL
+        value: https://github.com/apps/world-net-hosting/installations/new
+      - key: GITHUB_OAUTH_APP_KEY
+        sync: false
+      - key: GITHUB_OAUTH_APP_SECRET
+        sync: false
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: GITHUB_PRIVATE_KEY
+        sync: false
+      - key: GITHUB_WEBHOOK_SECRET
+        sync: false
+      - key: RENDER_API_KEY
+        sync: false
+      - key: RENDER_WORKSPACE_ID
+        sync: false
+      - key: RENDER_BACKEND_SERVICE_ID
+        sync: false
+      - key: RENDER_FRONTEND_SERVICE_ID
+        sync: false
+      - key: FRONTEND_URL
+        value: https://world-net-hosting-frontend.onrender.com
+      - key: BACKEND_URL
+        value: https://world-net-hosting-backend.onrender.com
+      - key: PAYSTACK_CALLBACK_URL
+        value: https://world-net-hosting-frontend.onrender.com/payment-success.html
+      - key: GITHUB_CALLBACK_URL
+        value: https://world-net-hosting-backend.onrender.com/api/github/callback
+      - key: GITHUB_OAUTH_CALLBACK_URL
+        value: https://world-net-hosting-backend.onrender.com/api/auth/github/callback
+      - key: GITHUB_AUTH_CALLBACK_URL
+        value: https://world-net-hosting-backend.onrender.com/api/auth/github/callback
+      - key: HOSTING_PLATFORM_DOMAIN
+        value: worldnethosting.com
+      - key: RENDER_DEFAULT_REGION
+        value: oregon
+      - key: RENDER_DEFAULT_PLAN
+        value: free
+      - key: RENDER_DEFAULT_HEALTH_CHECK_PATH
+        value: /
+      - key: USER_PLATFORM_FEE_RATE
+        value: "0.04"
+      - key: DOMAIN_API_MODE
+        value: live
+      - key: DOMAIN_SEARCH_BATCH_SIZE
+        value: "12"
+
+  - type: web
+    name: world-net-hosting-frontend
+    runtime: node
+    rootDir: frontend
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: node server.js
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.20.2
+      - key: WORLDNET_API_BASE_URL
+        value: https://world-net-hosting-backend.onrender.com/api
+      - key: WORLDNET_DEFAULT_DISPLAY_CURRENCY
+        value: USD
+      - key: WORLDNET_PAYSTACK_PUBLIC_KEY
+        sync: false
