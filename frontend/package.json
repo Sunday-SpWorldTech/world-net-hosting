@@ -1,0 +1,19 @@
+{
+  "name": "world-net-hosting-frontend",
+  "version": "2.3.0",
+  "private": true,
+  "description": "World Net Hosting Vite frontend",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "start": "node server.js",
+    "build": "node scripts-build-static.mjs",
+    "preview": "vite preview --host 0.0.0.0 --port 5173",
+    "serve": "node server.js"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
