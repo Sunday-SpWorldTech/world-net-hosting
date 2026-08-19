@@ -1,0 +1,114 @@
+/* WNH unified dashboard shell: public-header appearance, role-safe drawer menu */
+html,body.dashboard-body{margin:0!important;width:100%!important;min-height:100%!important;background:#eef4fb!important;overflow-x:hidden!important}
+body.dashboard-body{display:block!important;visibility:visible!important;opacity:1!important;color:#10233f!important}
+.dashboard-body .app-shell{display:block!important;width:100%!important;min-height:100vh!important;position:relative!important}
+.dashboard-body .app-main{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;margin:0!important;width:100%!important;max-width:none!important;min-width:0!important;min-height:100vh!important;padding:0 18px 40px!important;background:radial-gradient(circle at 100% 0,#e7f2ff 0,transparent 32%),#f3f7fc!important;overflow:visible!important}
+.dashboard-body .app-main>*{max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+.dashboard-body .app-topbar{position:sticky!important;top:0!important;z-index:900!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;min-height:82px!important;margin:0 -18px 20px!important;padding:12px 22px!important;background:linear-gradient(135deg,#031127,#082b5d)!important;border:0!important;box-shadow:0 10px 28px rgba(3,17,39,.16)!important;color:#fff!important}
+.dashboard-body .app-topbar::before{content:'WNH';display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:52px;height:42px;border-radius:12px;background:linear-gradient(135deg,#18b875,#247ff4);font-weight:900;letter-spacing:.04em;color:#fff;box-shadow:0 8px 22px rgba(20,96,181,.24)}
+.dashboard-body .app-topbar>div:first-of-type{min-width:0!important;flex:1 1 auto!important}
+.dashboard-body .app-topbar h1,.dashboard-body .app-topbar .app-kicker{color:#fff!important;overflow-wrap:normal!important;word-break:normal!important;white-space:normal!important}
+.dashboard-body .app-topbar h1{margin:2px 0 0!important;font-size:clamp(1.15rem,2.2vw,1.8rem)!important;line-height:1.15!important}
+.dashboard-body .app-topbar .app-kicker{margin:0!important;opacity:.8!important}
+.dashboard-body .app-top-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;min-width:0!important;flex-wrap:wrap!important}
+.dashboard-body .dashboard-locale-slot{min-width:0!important;max-width:100%!important}
+.dashboard-body .wnh-language-currency{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;max-width:100%!important}
+.dashboard-body .wnh-search-combo{min-width:170px!important;max-width:240px!important}
+.dashboard-body .app-mobile-menu-button{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;min-height:48px!important;padding:0 17px!important;border:1px solid rgba(255,255,255,.26)!important;border-radius:13px!important;background:rgba(255,255,255,.1)!important;color:#fff!important;font-weight:900!important;font-size:.98rem!important;cursor:pointer!important;box-shadow:none!important}
+.dashboard-body .app-mobile-menu-button:hover{background:rgba(255,255,255,.18)!important}
+.dashboard-body .app-mobile-menu-button .menu-icon{font-size:1.45rem;line-height:1}
+.dashboard-body .app-sidebar{position:fixed!important;inset:0 auto 0 0!important;width:min(88vw,330px)!important;height:100dvh!important;max-height:100dvh!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;z-index:1001!important;padding:18px 16px!important;background:linear-gradient(180deg,#031127,#061d3d)!important;color:#fff!important;box-shadow:20px 0 48px rgba(2,12,28,.34)!important;transform:translateX(-105%)!important;transition:transform .24s ease!important}
+.dashboard-body.dashboard-menu-open .app-sidebar{transform:translateX(0)!important}
+.dashboard-body.dashboard-menu-open{overflow:hidden!important}
+.dashboard-body .app-brand{display:flex!important;align-items:center!important;gap:12px!important;flex:0 0 auto!important;margin-bottom:14px!important;padding:4px 2px 16px!important;border-bottom:1px solid rgba(255,255,255,.13)!important;color:#fff!important;text-decoration:none!important}
+.dashboard-body .app-brand img,.dashboard-body .app-brand .wnh-text-logo{width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;border-radius:10px!important;object-fit:cover!important}
+.dashboard-body .app-brand-copy,.dashboard-body .app-brand>span:last-child{display:flex!important;flex-direction:column!important;min-width:0!important}
+.dashboard-body .app-brand strong{color:#fff!important;font-size:1.05rem!important}
+.dashboard-body .app-brand small{color:#c8d7ec!important;font-size:.82rem!important}
+.dashboard-body .app-sidebar-close{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:100%!important;min-height:42px!important;margin:0 0 10px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:11px!important;background:rgba(255,255,255,.1)!important;color:#fff!important;font-weight:900!important;cursor:pointer!important}
+.dashboard-body .app-nav-viewport{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;padding-right:4px!important}
+.dashboard-body .app-nav{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+.dashboard-body .app-nav a{display:block!important;width:100%!important;min-width:0!important;padding:13px 14px!important;border-radius:11px!important;color:#d6e3f5!important;text-decoration:none!important;font-weight:800!important;line-height:1.25!important;white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important}
+.dashboard-body .app-nav a:hover,.dashboard-body .app-nav a.active{background:linear-gradient(135deg,#16b877,#2780f5)!important;color:#fff!important}
+.dashboard-body .app-nav-scroll-controls{display:none!important}
+.dashboard-body .app-logout{position:static!important;flex:0 0 auto!important;width:100%!important;min-height:46px!important;margin-top:12px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:12px!important;background:rgba(255,255,255,.1)!important;color:#fff!important;font-weight:900!important;cursor:pointer!important}
+.dashboard-body .dashboard-menu-backdrop{display:block!important;position:fixed!important;inset:0!important;z-index:1000!important;border:0!important;background:rgba(2,12,28,.58)!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .22s ease,visibility .22s ease!important}
+.dashboard-body.dashboard-menu-open .dashboard-menu-backdrop{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+.dashboard-body .dashboard-hero,.dashboard-body .dashboard-page-intro,.dashboard-body .wallet-panel,.dashboard-body .card,.dashboard-body .dashboard-loading{min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important}
+.dashboard-body .dashboard-hero{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:20px!important;margin:0 auto 20px!important;max-width:1400px!important}
+.dashboard-body .dashboard-shortcuts,.dashboard-body #dashboard-data,.dashboard-body #reseller-data,.dashboard-body #admin-data,.dashboard-body .admin-section,.dashboard-body .banking-panel,.dashboard-body .admin-system-wallet-summary,.dashboard-body .dashboard-page-intro,.dashboard-body .wallet-panel,.wallet-action-page .app-main>main{width:100%!important;max-width:1400px!important;margin-left:auto!important;margin-right:auto!important}
+.dashboard-body img,.dashboard-body svg,.dashboard-body canvas,.dashboard-body video{max-width:100%!important;height:auto!important}
+.dashboard-body pre,.dashboard-body code{max-width:100%!important;overflow:auto!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+.dashboard-body input,.dashboard-body select,.dashboard-body textarea,.dashboard-body button{max-width:100%!important;box-sizing:border-box!important}
+.dashboard-body table{max-width:100%!important}
+.dashboard-body .table-wrap,.dashboard-body .dashboard-responsive-table{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+@media(max-width:820px){
+ .dashboard-body .app-main{padding:0 12px 28px!important}
+ .dashboard-body .app-topbar{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto!important;gap:10px!important;min-height:70px!important;margin:0 -12px 14px!important;padding:10px 12px!important}
+ .dashboard-body .app-topbar::before{width:42px;height:38px;font-size:.86rem}
+ .dashboard-body .app-topbar>div:first-of-type{grid-column:2!important}
+ .dashboard-body .app-mobile-menu-button{grid-column:3!important;grid-row:1!important;min-height:44px!important;padding:0 13px!important}
+ .dashboard-body .app-top-actions{grid-column:1/-1!important;grid-row:2!important;justify-content:stretch!important;width:100%!important}
+ .dashboard-body .dashboard-locale-slot{width:100%!important}
+ .dashboard-body .wnh-language-currency{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important}
+ .dashboard-body .wnh-search-combo{min-width:0!important;max-width:none!important;width:100%!important}
+ .dashboard-body .dashboard-hero{display:grid!important;align-items:start!important;gap:14px!important;padding:18px!important}
+ .dashboard-body .hero-action{width:100%!important;text-align:center!important}
+ .dashboard-body .cards,.dashboard-body .reseller-stat-grid,.dashboard-body .environment-grid,.dashboard-body .bank-dashboard-grid,.dashboard-body .wallet-action-grid,.dashboard-body .banking-forms{grid-template-columns:1fr!important}
+ .dashboard-body .wallet-panel{grid-template-columns:1fr!important;padding:16px!important}
+ .dashboard-body table{min-width:620px!important}
+ .wallet-action-page .app-main>main{padding:12px 0 40px!important}
+}
+@media(max-width:480px){
+ .dashboard-body .app-main{padding-left:10px!important;padding-right:10px!important}
+ .dashboard-body .app-topbar{margin-left:-10px!important;margin-right:-10px!important;grid-template-columns:auto minmax(0,1fr) auto!important}
+ .dashboard-body .app-topbar .app-kicker{display:none!important}
+ .dashboard-body .app-topbar h1{font-size:1rem!important}
+ .dashboard-body .app-mobile-menu-button .menu-label{display:none!important}
+ .dashboard-body .wnh-language-currency{grid-template-columns:1fr!important}
+}
+
+/* Dashboard vertical scrolling: keep page content and dashboard menu usable with mouse wheels/trackpads. */
+html:has(body.dashboard-body){height:auto!important;min-height:100%!important;overflow-y:auto!important;scroll-behavior:smooth!important}
+body.dashboard-body{height:auto!important;min-height:100vh!important;overflow-y:auto!important;overscroll-behavior-y:auto!important}
+.dashboard-body .app-shell,.dashboard-body .app-main{height:auto!important;overflow-y:visible!important}
+.dashboard-body .app-nav-viewport{overflow-y:auto!important;overscroll-behavior-y:contain!important;scrollbar-gutter:stable!important;-webkit-overflow-scrolling:touch!important}
+.dashboard-body .app-nav,.dashboard-body .app-nav a,.dashboard-body button,.dashboard-body a{touch-action:manipulation}
+.dashboard-body:not(.dashboard-menu-open){overflow-y:auto!important}
+
+/* Native mouse/trackpad scrolling for every dashboard navigation menu. */
+.dashboard-body .app-sidebar,
+.dashboard-body .app-nav-viewport {
+  overscroll-behavior-y: contain !important;
+  touch-action: pan-y !important;
+}
+.dashboard-body .app-nav-viewport {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-gutter: stable !important;
+  pointer-events: auto !important;
+}
+
+
+/* Persistent WNH Bank receiving-account details */
+.wnh-bank-account-strip{margin:18px 22px 0;padding:18px;border:1px solid rgba(31,124,255,.16);border-radius:18px;background:linear-gradient(135deg,rgba(15,188,122,.09),rgba(36,125,241,.09));box-shadow:0 12px 32px rgba(28,66,112,.08)}
+.wnh-bank-account-title{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}.wnh-bank-account-title span{display:block;color:#61738b;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.wnh-bank-account-title strong{display:block;color:#10253e;font-size:1.05rem;margin-top:3px}.wnh-bank-account-title a{padding:10px 14px;border-radius:11px;background:linear-gradient(135deg,#11ad75,#247df1);color:#fff;text-decoration:none;font-weight:850;white-space:nowrap}
+.wnh-bank-account-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.wnh-bank-account-grid>div{min-width:0;padding:13px;border-radius:13px;background:#fff;border:1px solid rgba(35,77,122,.1)}.wnh-bank-account-grid small{display:block;color:#6b7d94;font-weight:750;margin-bottom:5px}.wnh-bank-account-grid strong{display:block;color:#10253e;overflow-wrap:anywhere}.wnh-bank-account-grid button{margin-top:8px;border:0;border-radius:9px;padding:7px 10px;background:#edf5ff;color:#1262cf;font-weight:800;cursor:pointer}.wnh-bank-status{display:inline-block;margin-top:8px;padding:5px 9px;border-radius:999px;background:#e9fbf3;color:#108858;font-size:.78rem;font-weight:850}.wnh-bank-account-copy-status,.wnh-bank-account-help,.wnh-bank-account-loading{margin:10px 0 0;color:#60738d;font-weight:700}
+@media(max-width:900px){.wnh-bank-account-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.wnh-bank-account-strip{margin:12px 12px 0;padding:14px}.wnh-bank-account-title{align-items:flex-start;flex-direction:column}.wnh-bank-account-grid{grid-template-columns:1fr}}
+.profile-photo-shortcut{width:42px;height:42px;border:0;border-radius:50%;padding:0;overflow:hidden;background:#eef4fb;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(20,60,100,.14)}
+.profile-photo-shortcut img{width:100%;height:100%;object-fit:cover;display:block}
+
+
+/* 2026-08-19 dashboard topbar + hero locale controls */
+.dashboard-body .app-topbar{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:72px!important;padding:10px 18px!important;overflow:visible!important}
+.dashboard-body .app-topbar::before{display:none!important}
+.dashboard-body .app-topbar>div:first-of-type{min-width:0!important;flex:1 1 auto!important;grid-column:auto!important}
+.dashboard-body .app-top-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:9px!important;flex:0 0 auto!important;min-width:0!important}
+.dashboard-body .app-topbar .dashboard-locale-slot,.dashboard-body .app-topbar .wnh-language-currency{display:none!important}
+.dashboard-body .dashboard-locale-hero-slot{width:100%!important;display:flex!important;justify-content:flex-end!important;align-items:center!important;margin-top:14px!important;padding-top:14px!important;border-top:1px solid rgba(148,163,184,.24)!important}
+.dashboard-body .dashboard-hero .dashboard-locale-hero-slot,.dashboard-body .dashboard-page-intro .dashboard-locale-hero-slot,.dashboard-body .wnh-bank-account-strip .dashboard-locale-hero-slot{flex-basis:100%!important;grid-column:1/-1!important}
+.dashboard-body .dashboard-locale-hero-slot .wnh-language-currency{display:flex!important;width:auto!important;max-width:100%!important;gap:10px!important;flex-wrap:wrap!important;justify-content:flex-end!important}
+.dashboard-body .dashboard-locale-hero-slot .wnh-search-combo{min-width:210px!important;flex:0 1 250px!important}
+.dashboard-body .dashboard-locale-hero-slot .wnh-search-combo input{width:100%!important;min-width:0!important}
+@media(max-width:900px){.dashboard-body .app-topbar{margin-left:-12px!important;margin-right:-12px!important;padding:10px 12px!important;min-height:64px!important}.dashboard-body .app-top-actions{gap:7px!important}.dashboard-body .app-top-actions .profile-chip{max-width:120px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}.dashboard-body .dashboard-locale-hero-slot{justify-content:stretch!important;margin-top:12px!important;padding-top:12px!important}.dashboard-body .dashboard-locale-hero-slot .wnh-language-currency{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;width:100%!important}.dashboard-body .dashboard-locale-hero-slot .wnh-search-combo{min-width:0!important;width:100%!important}}
+@media(max-width:560px){.dashboard-body .app-main{padding-left:10px!important;padding-right:10px!important}.dashboard-body .app-topbar{margin-left:-10px!important;margin-right:-10px!important;padding:9px 10px!important}.dashboard-body .app-topbar h1{font-size:1rem!important;line-height:1.15!important}.dashboard-body .app-topbar .app-kicker{display:none!important}.dashboard-body .app-top-actions .profile-chip{display:none!important}.dashboard-body .dashboard-locale-hero-slot .wnh-language-currency{grid-template-columns:1fr!important}.dashboard-body .dashboard-hero,.dashboard-body .dashboard-page-intro,.dashboard-body .wnh-bank-account-strip{border-radius:14px!important;padding-left:14px!important;padding-right:14px!important}}
