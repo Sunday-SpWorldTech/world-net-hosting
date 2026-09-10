@@ -1,0 +1,74 @@
+(function(){
+const API=String(window.WORLDNET_CONFIG?.API_BASE_URL||'/api').replace(/\/$/,'');
+const API_CANDIDATES=[...new Set((window.WORLDNET_CONFIG?.API_CANDIDATES||window.WORLDNET_API_CANDIDATES||[API]).map(v=>String(v||'').replace(/\/$/,'')).filter(Boolean))];
+async function apiFetch(path,options={}){let last;for(const base of API_CANDIDATES){try{const response=await fetch(`${base}${path}`,options);if(response.status===404&&API_CANDIDATES.length>1){last=new Error(`HTTP 404 from ${base}`);continue;}return response;}catch(error){last=error;}}throw last||new Error('World Net Hosting backend is unavailable.');}
+const FALLBACK_LANGS=[['en','English'],['fr','French'],['es','Spanish'],['de','German'],['pt','Portuguese'],['it','Italian'],['nl','Dutch'],['ar','Arabic'],['sw','Swahili'],['af','Afrikaans'],['zh-Hans','Chinese (Simplified)'],['zh-Hant','Chinese (Traditional)'],['ja','Japanese'],['ko','Korean'],['hi','Hindi'],['tr','Turkish'],['ru','Russian']];
+let LANGS=[...FALLBACK_LANGS];
+async function loadSupportedLanguages(){
+  try{
+    const response=await apiFetch('/translator/languages',{headers:{Accept:'application/json'}});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok||!data.ok||!data.translation) throw new Error(data.message||'Unable to load translator languages');
+    const rows=Object.entries(data.translation).map(([code,info])=>[code,String(info?.name||info?.nativeName||code)]).sort((a,b)=>a[1].localeCompare(b[1]));
+    LANGS=[['en','English'],...rows.filter(([code])=>code!=='en')];
+  }catch{
+    LANGS=[...FALLBACK_LANGS];
+  }
+  const saved=localStorage.getItem('worldnet_language')||'en';
+  if(!LANGS.some(([code])=>code===saved)){
+    localStorage.setItem('worldnet_language','en');
+    restore();
+  }
+}
+window.WNH_CURRENCIES=[['USD','US Dollar'],['EUR','Euro'],['GBP','British Pound'],['NGN','Nigerian Naira'],['GHS','Ghanaian Cedi'],['KES','Kenyan Shilling'],['ZAR','South African Rand'],['CAD','Canadian Dollar'],['AUD','Australian Dollar'],['NZD','New Zealand Dollar'],['JPY','Japanese Yen'],['CNY','Chinese Yuan'],['HKD','Hong Kong Dollar'],['SGD','Singapore Dollar'],['INR','Indian Rupee'],['BRL','Brazilian Real'],['MXN','Mexican Peso'],['AED','United Arab Emirates Dirham'],['SAR','Saudi Riyal'],['QAR','Qatari Riyal'],['KWD','Kuwaiti Dinar'],['BHD','Bahraini Dinar'],['OMR','Omani Rial'],['CHF','Swiss Franc'],['SEK','Swedish Krona'],['NOK','Norwegian Krone'],['DKK','Danish Krone'],['PLN','Polish Zloty'],['CZK','Czech Koruna'],['HUF','Hungarian Forint'],['RON','Romanian Leu'],['BGN','Bulgarian Lev'],['TRY','Turkish Lira'],['RUB','Russian Ruble'],['UAH','Ukrainian Hryvnia'],['ILS','Israeli New Shekel'],['EGP','Egyptian Pound'],['MAD','Moroccan Dirham'],['DZD','Algerian Dinar'],['TND','Tunisian Dinar'],['XOF','West African CFA Franc'],['XAF','Central African CFA Franc'],['XPF','CFP Franc'],['ETB','Ethiopian Birr'],['UGX','Ugandan Shilling'],['TZS','Tanzanian Shilling'],['RWF','Rwandan Franc'],['BWP','Botswanan Pula'],['NAD','Namibian Dollar'],['ZMW','Zambian Kwacha'],['MZN','Mozambican Metical'],['AOA','Angolan Kwanza'],['GMD','Gambian Dalasi'],['GNF','Guinean Franc'],['SLL','Sierra Leonean Leone (1964—2022)'],['LRD','Liberian Dollar'],['CVE','Cape Verdean Escudo'],['MRU','Mauritanian Ouguiya'],['STN','São Tomé & Príncipe Dobra'],['SCR','Seychellois Rupee'],['MUR','Mauritian Rupee'],['MWK','Malawian Kwacha'],['SZL','Swazi Lilangeni'],['LSL','Lesotho Loti'],['CDF','Congolese Franc'],['SOS','Somali Shilling'],['SDG','Sudanese Pound'],['SSP','South Sudanese Pound'],['LYD','Libyan Dinar'],['JOD','Jordanian Dinar'],['LBP','Lebanese Pound'],['IQD','Iraqi Dinar'],['IRR','Iranian Rial'],['AFN','Afghan Afghani'],['PKR','Pakistani Rupee'],['BDT','Bangladeshi Taka'],['LKR','Sri Lankan Rupee'],['NPR','Nepalese Rupee'],['BTN','Bhutanese Ngultrum'],['MVR','Maldivian Rufiyaa'],['MMK','Myanmar Kyat'],['THB','Thai Baht'],['VND','Vietnamese Dong'],['KHR','Cambodian Riel'],['LAK','Laotian Kip'],['MYR','Malaysian Ringgit'],['IDR','Indonesian Rupiah'],['PHP','Philippine Peso'],['BND','Brunei Dollar'],['TWD','New Taiwan Dollar'],['KRW','South Korean Won'],['MNT','Mongolian Tugrik'],['KZT','Kazakhstani Tenge'],['UZS','Uzbekistani Som'],['TJS','Tajikistani Somoni'],['TMT','Turkmenistani Manat'],['KGS','Kyrgystani Som'],['AZN','Azerbaijani Manat'],['GEL','Georgian Lari'],['AMD','Armenian Dram'],['BYN','Belarusian Ruble'],['MDL','Moldovan Leu'],['RSD','Serbian Dinar'],['MKD','Macedonian Denar'],['ALL','Albanian Lek'],['BAM','Bosnia-Herzegovina Convertible Mark'],['ISK','Icelandic Króna'],['HRK','Croatian Kuna'],['CLP','Chilean Peso'],['COP','Colombian Peso'],['PEN','Peruvian Sol'],['ARS','Argentine Peso'],['UYU','Uruguayan Peso'],['PYG','Paraguayan Guarani'],['BOB','Bolivian Boliviano'],['VES','Venezuelan Bolívar'],['GYD','Guyanaese Dollar'],['SRD','Surinamese Dollar'],['BZD','Belize Dollar'],['GTQ','Guatemalan Quetzal'],['HNL','Honduran Lempira'],['NIO','Nicaraguan Córdoba'],['CRC','Costa Rican Colón'],['PAB','Panamanian Balboa'],['DOP','Dominican Peso'],['HTG','Haitian Gourde'],['JMD','Jamaican Dollar'],['TTD','Trinidad & Tobago Dollar'],['BBD','Barbadian Dollar'],['BSD','Bahamian Dollar'],['BMD','Bermudan Dollar'],['KYD','Cayman Islands Dollar'],['XCD','East Caribbean Dollar'],['AWG','Aruban Florin'],['ANG','Netherlands Antillean Guilder'],['CUP','Cuban Peso'],['CUC','Cuban Convertible Peso'],['FJD','Fijian Dollar'],['PGK','Papua New Guinean Kina'],['SBD','Solomon Islands Dollar'],['VUV','Vanuatu Vatu'],['WST','Samoan Tala'],['TOP','Tongan Paʻanga'],['KMF','Comorian Franc'],['DJF','Djiboutian Franc'],['ERN','Eritrean Nakfa'],['BIF','Burundian Franc'],['ZWL','Zimbabwean Dollar (2009–2024)'],['ZWG','Zimbabwean Gold'],['MOP','Macanese Pataca'],['XAU','Gold'],['XAG','Silver'],['XPT','Platinum'],['XPD','Palladium'],['XDR','Special Drawing Rights'],['ADP','Andorran Peseta'],['AFA','Afghan Afghani (1927–2002)'],['ALK','Albanian Lek (1946–1965)'],['AOK','Angolan Kwanza (1977–1991)'],['AON','Angolan New Kwanza (1990–2000)'],['AOR','Angolan Readjusted Kwanza (1995–1999)'],['ARA','Argentine Austral'],['ARL','Argentine Peso Ley (1970–1983)'],['ARM','Argentine Peso (1881–1970)'],['ARP','Argentine Peso (1983–1985)'],['ATS','Austrian Schilling'],['AZM','Azerbaijani Manat (1993–2006)'],['BAD','Bosnia-Herzegovina Dinar (1992–1994)'],['BAN','Bosnia-Herzegovina New Dinar (1994–1997)'],['BEC','Belgian Franc (convertible)']];
+const originalText=new WeakMap(), originalAttrs=new WeakMap(); let busy=false, observer;
+function ignored(n){return !n.parentElement||n.parentElement.closest('script,style,noscript,code,pre,textarea,[data-no-translate],[data-wnh-switcher]');}
+function collect(){const out=[];const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(ignored(n))continue;const v=n.nodeValue;if(!v||!v.trim()||!/[A-Za-zÀ-ÿ]/.test(v))continue;if(!originalText.has(n))originalText.set(n,v);out.push({type:'text',node:n,value:originalText.get(n).trim()});}document.querySelectorAll('[placeholder],[title],[aria-label]').forEach(el=>{if(el.closest('[data-no-translate],[data-wnh-switcher]'))return;const saved=originalAttrs.get(el)||{};['placeholder','title','aria-label'].forEach(a=>{const v=el.getAttribute(a);if(!v||!/[A-Za-zÀ-ÿ]/.test(v))return;if(!(a in saved))saved[a]=v;out.push({type:'attr',node:el,attr:a,value:saved[a]});});originalAttrs.set(el,saved);});return out;}
+function restore(){collect().forEach(i=>{if(i.type==='text'){const v=originalText.get(i.node);if(v!=null)i.node.nodeValue=v;}else{const v=originalAttrs.get(i.node)?.[i.attr];if(v!=null)i.node.setAttribute(i.attr,v);}});document.documentElement.lang='en';document.documentElement.dir='ltr';}
+async function translate(code){localStorage.setItem('worldnet_language',code);document.documentElement.lang=code;document.dispatchEvent(new CustomEvent('wnh:language-changed',{detail:{language:code}}));window.dispatchEvent(new CustomEvent('worldnet:language-changed',{detail:{language:code}}));if(code==='en'){restore();return;}if(busy)return;busy=true;try{const items=collect(),texts=items.map(i=>i.value),results=[];for(let s=0;s<texts.length;s+=75){const r=await apiFetch('/translator/translate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({to:code,texts:texts.slice(s,s+75)})});const d=await r.json().catch(()=>({}));if(!r.ok||!d.ok)throw new Error(d.message||'This language is not supported by the configured translator');results.push(...d.translations);}items.forEach((i,x)=>{const v=results[x];if(typeof v!=='string')return;if(i.type==='text'){const o=originalText.get(i.node)||'';i.node.nodeValue=(o.match(/^\s*/)?.[0]||'')+v+(o.match(/\s*$/)?.[0]||'');}else i.node.setAttribute(i.attr,v);});document.documentElement.lang=code;document.documentElement.dir=['ar','fa','he','ur'].includes(code.split('-')[0])?'rtl':'ltr';}catch(e){localStorage.setItem('worldnet_language','en');restore();const languageBox=document.querySelector('[data-wnh-switcher] [data-kind=language] input');if(languageBox){languageBox.value='EN — English';languageBox.dataset.selectedCode='en';}console.warn(e.message||e);}finally{busy=false;}}
+function combo(label,icon,items,value,onpick,kind){const box=document.createElement('div');box.className='wnh-search-combo';box.innerHTML=`<span>${icon}</span><input type="search" aria-label="${label}" placeholder="Search ${label.toLowerCase()}" autocomplete="off"><div class="wnh-combo-menu"></div>`;const input=box.querySelector('input'),menu=box.querySelector('.wnh-combo-menu');function populateMenu(q=''){const s=q.trim().toLowerCase();const rows=items.filter(x=>!s||x[0].toLowerCase().includes(s)||x[1].toLowerCase().includes(s)).slice(0,60);menu.innerHTML=rows.map(x=>`<button type="button" data-code="${x[0]}"><b>${x[0].toUpperCase()}</b> ${x[1]}</button>`).join('');menu.hidden=!rows.length;}const selected=(items.find(x=>x[0]===value)||[value,value]);input.value=selected.join(' — ');input.dataset.selectedCode=selected[0];input.addEventListener('focus',()=>{input.select();populateMenu('')});input.addEventListener('input',()=>{input.dataset.selectedCode='';populateMenu(input.value)});input.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.hidden=true;input.blur();}if(e.key==='Enter'){const first=menu.querySelector('button');if(first){e.preventDefault();first.click();}}});menu.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const x=items.find(y=>y[0]===b.dataset.code);input.value=x.join(' — ');input.dataset.selectedCode=x[0];menu.hidden=true;onpick(x[0]);});document.addEventListener('click',e=>{if(!box.contains(e.target))menu.hidden=true;});box.dataset.kind=kind;return box;}
+async function mount(){
+  if(document.querySelector('[data-wnh-switcher]'))return;
+  await loadSupportedLanguages();
+  const isDashboard=document.body.classList.contains('dashboard-body');
+  let target=null;
+  if(isDashboard){
+    let slot=document.querySelector('#dashboard-language-currency,.dashboard-locale-hero-slot');
+    if(!slot){
+      const hero=document.querySelector('.dashboard-hero,.dashboard-page-intro,.wnh-bank-account-strip');
+      if(hero){
+        slot=document.createElement('div');
+        slot.id='dashboard-language-currency';
+        slot.className='dashboard-locale-hero-slot';
+        slot.setAttribute('aria-label','Language and currency controls');
+        hero.appendChild(slot);
+      }
+    }
+    target=slot;
+  }else{
+    const header=document.querySelector('header.top-nav,header.site-header');
+    if(header){
+      let strip=document.querySelector('.page-prehero-controls');
+      if(!strip){
+        strip=document.createElement('div');
+        strip.className='page-prehero-controls';
+        strip.setAttribute('aria-label','Language and currency controls');
+        header.insertAdjacentElement('afterend',strip);
+      }
+      target=strip;
+    }
+  }
+  if(!target)return;
+  const wrap=document.createElement('div');
+  wrap.className='wnh-language-currency';wrap.dataset.wnhSwitcher='true';wrap.dataset.noTranslate='true';
+  const lang=localStorage.getItem('worldnet_language')||'en';
+  wrap.appendChild(combo('Language','🌐',LANGS,lang,translate,'language'));
+  wrap.appendChild(combo('Currency','💱',window.WNH_CURRENCIES,localStorage.getItem('worldnet_currency')||'USD',c=>window.changeCurrency?window.changeCurrency(c):Promise.resolve().then(()=>document.dispatchEvent(new CustomEvent('wnh:currency-changed',{detail:{currency:c,rate:1}}))),'currency'));
+  const existing=target.querySelector('[data-currency-select]');if(existing)existing.remove();
+  target.appendChild(wrap);
+  if(lang!=='en')setTimeout(()=>translate(lang),250);
+  observer=new MutationObserver(()=>{if(!busy&&localStorage.getItem('worldnet_language')!=='en'){clearTimeout(window.__wnhTr);window.__wnhTr=setTimeout(()=>translate(localStorage.getItem('worldnet_language')),400);}});
+  observer.observe(document.body,{childList:true,subtree:true});
+}
+window.addEventListener('DOMContentLoaded',()=>setTimeout(mount,50));
+})();

@@ -1,0 +1,21 @@
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+*.zip
+npm-debug.log*
+.cache/
+
+# Keep deployment secrets local; files remain in this delivered project.
+.env
+.env.*
+backend/.env
+frontend/.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# Generated Vercel frontend output
+frontend/dist/
+
+backend/.env.sample
+frontend/.env.sample

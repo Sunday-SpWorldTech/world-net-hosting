@@ -1,0 +1,3 @@
+const mongoose=require('mongoose');
+const schema=new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true,index:true},type:{type:String,enum:['transfer-in','receive'],required:true},domain:{type:String,required:true,lowercase:true,trim:true,index:true},email:{type:String,default:''},senderEmail:{type:String,default:''},authCodeEncrypted:{type:String,default:''},note:{type:String,default:''},status:{type:String,default:'pending-review'},providerReference:{type:String,default:''},providerResponse:{type:mongoose.Schema.Types.Mixed}}, {timestamps:true});
+module.exports=mongoose.model('DomainTransfer',schema);
